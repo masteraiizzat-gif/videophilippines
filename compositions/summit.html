@@ -1,0 +1,92 @@
+<template>
+  <style>
+    @font-face { font-family: "PS Playfair"; font-weight: 900; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); }
+    @font-face { font-family: "PS Oswald"; font-weight: 700; src: url("assets/fonts/oswald-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "PS Montserrat"; font-weight: 800; src: url("assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #sum-stage { position: absolute; inset: 0; overflow: hidden; background: #0b1e4a; }
+    #sum-bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+    #sum-tint { position: absolute; inset: 0; background: rgba(11, 30, 74, 0.5); }
+    #sum-shake { position: absolute; inset: 0; }
+    #sum-cam { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    /* poster laid out 1280x1920; camera moves #sum-cam with origin 0 0 */
+    #sum-poster { position: absolute; left: -100px; top: 0; width: 1280px; height: 1920px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); }
+    #sum-dim { position: absolute; inset: 0; background: #06102a; opacity: 0; }
+    #sum-scrim { position: absolute; left: 0; top: 0; width: 1080px; height: 1130px; opacity: 0;
+      background: linear-gradient(180deg, rgba(8, 20, 52, 0.97) 0%, rgba(8, 20, 52, 0.9) 76%, rgba(8, 20, 52, 0) 100%); }
+    #sum-flash { position: absolute; inset: 0; background: #fff6d8; opacity: 0; }
+    #sum-badge { position: absolute; left: 290px; top: 360px; width: 500px; height: 500px; }
+    #sum-badge img { width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 0 0 8px rgba(242, 193, 78, 0.9), 0 24px 60px rgba(0, 0, 0, 0.6); }
+    #sum-2027 { position: absolute; left: 0; top: 700px; width: 1080px; text-align: center; }
+    #sum-2027-t { display: inline-block; font-family: "PS Playfair", serif; font-weight: 900; font-size: 330px; line-height: 1;
+      background: linear-gradient(180deg, #fff6d8 0%, #f2c14e 40%, #a8741f 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 10px 0 #3c2500) drop-shadow(0 24px 50px rgba(0, 0, 0, 0.7)); padding: 0 20px; }
+    #sum-2027-sub { position: absolute; left: 0; top: 1050px; width: 1080px; text-align: center; font-family: "PS Oswald", sans-serif; font-weight: 700; font-size: 44px; letter-spacing: 10px; color: #fff; }
+    .sum-card { position: absolute; left: 60px; display: flex; align-items: center; gap: 22px; padding: 18px 34px 18px 24px; border-radius: 20px;
+      background: linear-gradient(180deg, #13306e, #0b1e4a); border: 4px solid #e2b54a; box-shadow: inset 0 0 0 6px #0b1e4a, inset 0 0 0 8px rgba(242, 193, 78, 0.6), 0 16px 34px rgba(0, 0, 0, 0.5); }
+    #sum-pin { top: 330px; }
+    #sum-date { top: 455px; }
+    .sum-card-t { font-family: "PS Oswald", sans-serif; font-weight: 700; font-size: 58px; line-height: 1; color: #fff; letter-spacing: 2px; white-space: nowrap; }
+    #sum-date .sum-card-t { font-family: "PS Montserrat", sans-serif; font-weight: 800; font-size: 46px; color: #f2c14e; letter-spacing: 3px; }
+    .sum-ico { width: 56px; height: 56px; flex: none; }
+  </style>
+  <div id="root" data-composition-id="summit" data-width="1080" data-height="1920">
+    <div id="sum-stage" class="clip" data-start="0" data-duration="6.1" data-track-index="0" data-layout-allow-overflow>
+      <img id="sum-bg" src="assets/img/poster-blur.jpg" alt="" />
+      <div id="sum-tint"></div>
+      <div id="sum-shake">
+        <div id="sum-cam"><img id="sum-poster" src="assets/img/poster@2x.jpg" alt="" /></div>
+        <div id="sum-dim"></div>
+        <div id="sum-scrim"></div>
+        <div id="sum-badge"><img id="sum-badge-img" src="assets/img/logo.png" alt="" /></div>
+        <div id="sum-2027"><span id="sum-2027-t">2027</span></div>
+        <div id="sum-2027-sub">WORLD MASSAGE SUMMIT</div>
+        <div id="sum-pin" class="sum-card">
+          <svg class="sum-ico" viewBox="0 0 24 24"><path fill="#f2c14e" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          <span class="sum-card-t">MANILA, PHILIPPINES</span>
+        </div>
+        <div id="sum-date" class="sum-card">
+          <svg class="sum-ico" viewBox="0 0 24 24"><path fill="#f2c14e" d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm-2 7h14v11H5V9zm2 2v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/></svg>
+          <span class="sum-card-t">17–18 APRIL 2027</span>
+        </div>
+      </div>
+      <div id="sum-flash"></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    gsap.set("#sum-cam", { transformOrigin: "0 0" });
+    // camera views (x, y, scale) of the 1280x1920 poster
+    const BADGE = { x: -1197, y: 334, scale: 1.7 };
+    const TITLE = { x: 42, y: 176, scale: 0.906 };
+    const MANILA = { x: -648, y: -2304, scale: 2.2 };
+
+    // whip in from the right on the cut (global 7.92)
+    tl.fromTo("#sum-stage", { x: 1080, filter: "blur(20px)" }, { x: 0, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 0);
+    tl.fromTo("#sum-cam", { x: BADGE.x + 120, y: BADGE.y, scale: BADGE.scale * 1.05 }, { ...BADGE, duration: 1.0, ease: "power2.out" }, 0);
+    // summit badge pops forward with the sparkle (global 8.35)
+    tl.fromTo("#sum-badge", { scale: 0.7, opacity: 0, rotation: -12 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.4);
+    tl.to("#sum-badge", { scale: 0.55, opacity: 0, y: -420, duration: 0.35, ease: "power3.in" }, 1.0);
+    // pan to the title while he says "World Massage Summit"
+    tl.to("#sum-cam", { ...TITLE, duration: 0.85, ease: "power2.inOut" }, 1.0);
+
+    // 2027 slam on the drop (global 10.26 = local 2.34)
+    tl.to("#sum-dim", { opacity: 0.62, duration: 0.18, ease: "power2.out" }, 2.3);
+    tl.fromTo("#sum-2027-t", { scale: 2.3, opacity: 0, filter: "blur(16px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.22, ease: "expo.out" }, 2.32);
+    tl.fromTo("#sum-flash", { opacity: 0 }, { opacity: 0.55, duration: 0.04, ease: "none" }, 2.34);
+    tl.to("#sum-flash", { opacity: 0, duration: 0.2, ease: "power2.out" }, 2.38);
+    tl.fromTo("#sum-shake", { x: 0, y: 0 }, { keyframes: [{ x: -14, y: 9 }, { x: 11, y: -8 }, { x: -7, y: 5 }, { x: 4, y: -2 }, { x: 0, y: 0 }], duration: 0.3, ease: "none" }, 2.36);
+    tl.fromTo("#sum-2027-sub", { opacity: 0, scaleX: 1.4 }, { opacity: 1, scaleX: 1, duration: 0.45, ease: "expo.out" }, 2.5);
+    // 2027 leaves, camera drops to Manila (global 12.14 = local 4.22)
+    tl.to(["#sum-2027-t", "#sum-2027-sub"], { opacity: 0, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }, 3.98);
+    tl.to("#sum-dim", { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 4.0);
+    tl.to("#sum-cam", { ...MANILA, duration: 0.6, ease: "power3.inOut" }, 4.0);
+    tl.fromTo("#sum-scrim", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 4.2);
+    // pin on "Manila" (global 12.66 = local 4.74), date right after
+    tl.fromTo("#sum-pin", { x: -700, filter: "blur(12px)" }, { x: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 4.66);
+    tl.fromTo("#sum-date", { x: -700, filter: "blur(12px)" }, { x: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 4.76);
+    // whip out to the left into the face (global 14.02 = local 6.10)
+    tl.to("#sum-stage", { x: -1080, filter: "blur(18px)", duration: 0.26, ease: "power3.in" }, 5.82);
+    window.__timelines["summit"] = tl;
+  </script>
+</template>

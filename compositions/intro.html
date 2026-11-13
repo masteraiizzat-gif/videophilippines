@@ -1,0 +1,50 @@
+<template>
+  <style>
+    @font-face { font-family: "PS Oswald"; font-weight: 700; src: url("assets/fonts/oswald-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "PS Montserrat"; font-weight: 800; src: url("assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "PS Playfair"; font-weight: 900; font-style: italic; src: url("assets/fonts/playfair-display-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    /* the poster's own name plate: navy with a double gold rule */
+    #intro-plate { position: absolute; left: 0; top: 1000px; width: 1080px; height: 172px; }
+    #intro-plate-box { position: absolute; left: 120px; top: 0; width: 920px; height: 172px; background: linear-gradient(180deg, #13306e 0%, #0b1e4a 100%);
+      border: 4px solid #e2b54a; border-radius: 22px; box-shadow: inset 0 0 0 7px #0b1e4a, inset 0 0 0 9px rgba(242, 193, 78, 0.65), 0 18px 40px rgba(0, 0, 0, 0.5); }
+    #intro-face { position: absolute; left: 36px; top: -24px; width: 220px; height: 220px; border-radius: 50%; border: 7px solid #f2c14e;
+      box-shadow: 0 0 0 4px #0b1e4a, 0 14px 30px rgba(0, 0, 0, 0.5); object-fit: cover; }
+    #intro-name { position: absolute; left: 165px; top: 26px; width: 730px; font-family: "PS Oswald", sans-serif; font-weight: 700; font-size: 54px; line-height: 1.05; color: #fff; letter-spacing: 1px; }
+    #intro-role { position: absolute; left: 167px; top: 100px; width: 730px; font-family: "PS Montserrat", sans-serif; font-weight: 800; font-size: 29px; letter-spacing: 3px; color: #f2c14e; }
+    #intro-chip { position: absolute; left: 600px; top: 868px; }
+    #intro-chip-in { padding: 12px 34px 16px; border-radius: 16px; background: linear-gradient(180deg, #fff3c4 0%, #f2c14e 50%, #c9952f 100%);
+      box-shadow: 0 0 0 4px #0b1e4a, 0 14px 28px rgba(0, 0, 0, 0.45); font-family: "PS Playfair", serif; font-weight: 900; font-style: italic; font-size: 64px; line-height: 1; color: #0b1e4a; white-space: nowrap; }
+    #intro-flag { position: absolute; left: 820px; top: 740px; width: 200px; height: 132px; border-radius: 14px; overflow: hidden; border: 5px solid #fff; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45); }
+    #intro-flag img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%; }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1080" data-height="1920">
+    <div id="intro-plate" class="clip" data-start="0.7" data-duration="3.46" data-track-index="0" data-layout-allow-overflow>
+      <div id="intro-plate-box">
+        <div id="intro-name">MOHD ABIDDIN BIN HJ AHMAD</div>
+        <div id="intro-role">MALAYSIA JUDGE · WMS 2027</div>
+      </div>
+      <img id="intro-face" src="assets/img/abiddin.png" alt="" />
+    </div>
+    <div id="intro-chip" class="clip" data-start="2.55" data-duration="1.61" data-track-index="1"><div id="intro-chip-in">“Pak Su Den”</div></div>
+    <div id="intro-flag" class="clip" data-start="3.5" data-duration="0.66" data-track-index="2"><img id="intro-flag-img" src="assets/img/flag-my.png" alt="" /></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // plate lands on "Mohd" (global 2.62 = local 0.76)
+    tl.fromTo("#intro-plate-box", { x: -1100, filter: "blur(16px)" }, { x: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.72);
+    tl.fromTo("#intro-face", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.55, ease: "back.out(1.6)" }, 0.86);
+    tl.fromTo("#intro-name", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, 0.98);
+    tl.fromTo("#intro-role", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 1.1);
+    // nickname chip on "Pak" (global 4.48 = local 2.62)
+    tl.fromTo("#intro-chip-in", { scale: 0, rotation: -10 }, { scale: 1, rotation: -4, duration: 0.42, ease: "back.out(1.8)" }, 2.6);
+    // flag on "Malaysia" (global 5.44 = local 3.58)
+    tl.fromTo("#intro-flag", { scale: 0, rotation: 18 }, { scale: 1, rotation: 6, duration: 0.4, ease: "back.out(1.7)" }, 3.56);
+    // everything leaves together before "I am honoured"
+    tl.to("#intro-plate-box", { x: -1150, duration: 0.24, ease: "power3.in" }, 3.9);
+    tl.to("#intro-face", { x: -1150, duration: 0.24, ease: "power3.in" }, 3.9);
+    tl.to("#intro-chip-in", { scale: 0, duration: 0.18, ease: "power3.in" }, 3.9);
+    tl.to("#intro-flag", { scale: 0, duration: 0.16, ease: "power3.in" }, 3.97);
+    window.__timelines["intro"] = tl;
+  </script>
+</template>

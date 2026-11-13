@@ -1,0 +1,40 @@
+<template>
+  <style>
+    @font-face { font-family: "PS Playfair"; font-weight: 900; font-style: italic; src: url("assets/fonts/playfair-display-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .cb-scrim { position: absolute; left: 0; top: 0; width: 1080px; height: 740px;
+      background: linear-gradient(180deg, rgba(6, 14, 40, 0.55) 0%, rgba(6, 14, 40, 0.8) 45%, rgba(6, 14, 40, 0) 100%); }
+    .cb-flag { position: absolute; width: 430px; }
+    #cb-flag-my { left: -40px; top: 0px; }
+    #cb-flag-ph { right: -60px; top: 20px; }
+    .cb-title { position: absolute; left: 0; top: 300px; width: 1080px; text-align: center; }
+    .cb-title span { display: inline-block; font-family: "PS Playfair", serif; font-weight: 900; font-style: italic; font-size: 140px; line-height: 1.1;
+      background: linear-gradient(180deg, #fff3c4 0%, #f2c14e 45%, #b8862b 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 6px 0 rgba(60, 30, 0, 0.55)) drop-shadow(0 14px 30px rgba(0, 0, 0, 0.6)); padding: 0 30px; }
+    #cb-bye span { font-size: 200px; }
+  </style>
+  <div id="root" data-composition-id="callback" data-width="1080" data-height="1920">
+    <div id="cb-scrim-a" class="clip cb-scrim" data-start="0" data-duration="0.95" data-track-index="0" data-layout-ignore></div>
+    <img id="cb-flag-my" class="clip cb-flag" src="assets/img/flag-my.png" data-start="0" data-duration="0.95" data-track-index="1" data-layout-allow-overflow />
+    <img id="cb-flag-ph" class="clip cb-flag" src="assets/img/flag-ph.png" data-start="0" data-duration="0.95" data-track-index="1" data-layout-allow-overflow />
+    <div id="cb-mabuhay" class="clip cb-title" data-start="0" data-duration="0.95" data-track-index="2" data-layout-allow-overlap><span id="cb-mabuhay-t">MABUHAY!</span></div>
+    <div id="cb-scrim-b" class="clip cb-scrim" data-start="2.5" data-duration="0.84" data-track-index="0" data-layout-ignore></div>
+    <div id="cb-bye" class="clip cb-title" data-start="2.5" data-duration="0.84" data-track-index="2"><span id="cb-bye-t">Bye!</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // callback to the hook: flags drop in from the top this time (global 17.08 = local 0.06)
+    tl.fromTo("#cb-scrim-a", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, 0);
+    tl.fromTo("#cb-flag-my", { y: -560, rotation: -14 }, { y: 0, rotation: -4, duration: 0.45, ease: "back.out(1.4)" }, 0.02);
+    tl.fromTo("#cb-flag-ph", { y: -560, rotation: 14 }, { y: 0, rotation: 4, duration: 0.45, ease: "back.out(1.4)" }, 0.08);
+    tl.fromTo("#cb-mabuhay-t", { scale: 0.4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.32, ease: "back.out(1.7)" }, 0.06);
+    tl.to(["#cb-flag-my", "#cb-flag-ph"], { y: -560, duration: 0.2, ease: "power3.in" }, 0.74);
+    tl.to("#cb-mabuhay-t", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 0.78);
+    tl.to("#cb-scrim-a", { opacity: 0, duration: 0.18, ease: "power2.in" }, 0.76);
+    // Bye! with a wave (global 19.62 = local 2.60)
+    tl.fromTo("#cb-scrim-b", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, 2.5);
+    tl.fromTo("#cb-bye-t", { scale: 0, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }, 2.56);
+    tl.to("#cb-bye-t", { keyframes: [{ rotation: 8 }, { rotation: -6 }, { rotation: 3 }, { rotation: 0 }], duration: 0.5, ease: "power1.inOut" }, 2.84);
+    window.__timelines["callback"] = tl;
+  </script>
+</template>

@@ -1,0 +1,23 @@
+{
+  "_note": "Source in/out seconds in assets/raw.mp4. Segments play back-to-back. Removed: 0-2.44 dead air, 'Hello everyone' (repeat greeting), 'See you there' (repeated by the closing line), and every pause/hesitation over ~0.15s.",
+  "source": "assets/raw.mp4",
+  "segments": [
+    { "id": "s01", "in": 2.44,  "out": 4.30,  "text": "Mabuhay, Philippines!", "zoom": 1.00 },
+    { "id": "s02", "in": 6.78,  "out": 8.90,  "text": "I am Mohd Abiddin bin Ahmad,", "zoom": 1.10 },
+    { "id": "s03", "in": 9.78,  "out": 10.98, "text": "call me Pak Su Den", "zoom": 1.22 },
+    { "id": "s04", "in": 11.22, "out": 12.06, "text": "from Malaysia.", "zoom": 1.08 },
+    { "id": "s05", "in": 12.62, "out": 14.52, "text": "I am honoured to be joining", "zoom": 1.16 },
+    { "id": "s06", "in": 14.74, "out": 17.02, "text": "the Philippines World Massage Summit", "zoom": 1.00 },
+    { "id": "s07", "in": 17.46, "out": 19.40, "text": "2027", "zoom": 1.00 },
+    { "id": "s08", "in": 19.98, "out": 21.00, "text": "in Manila.", "zoom": 1.00 },
+    { "id": "s09", "in": 22.84, "out": 23.70, "text": "And let", "zoom": 1.06 },
+    { "id": "s10", "in": 24.22, "out": 24.78, "text": "me", "zoom": 1.18 },
+    { "id": "s11", "in": 25.32, "out": 25.80, "text": "make", "zoom": 1.06 },
+    { "id": "s12", "in": 26.04, "out": 26.46, "text": "an", "zoom": 1.24 },
+    { "id": "s13", "in": 26.76, "out": 27.62, "text": "unforgettable", "zoom": 1.12 },
+    { "id": "s14", "in": 27.94, "out": 28.62, "text": "experience.", "zoom": 1.30 },
+    { "id": "s15", "in": 28.80, "out": 29.56, "text": "Mabuhay,", "zoom": 1.18 },
+    { "id": "s16", "in": 30.20, "out": 31.98, "text": "see you in the Philippines!", "zoom": 1.04 },
+    { "id": "s17", "in": 32.50, "out": 33.30, "text": "Bye!", "zoom": 1.12 }
+  ]
+}

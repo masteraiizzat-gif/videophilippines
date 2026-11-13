@@ -1,0 +1,45 @@
+<template>
+  <style>
+    @font-face { font-family: "PS Playfair"; font-weight: 900; font-style: italic; src: url("assets/fonts/playfair-display-latin-900-italic.woff2") format("woff2"); }
+    @font-face { font-family: "PS Montserrat"; font-weight: 900; src: url("assets/fonts/montserrat-latin-900-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #hook-scrim { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+      background: linear-gradient(180deg, rgba(6, 14, 40, 0.55) 0%, rgba(6, 14, 40, 0.8) 45%, rgba(6, 14, 40, 0) 100%); }
+    .hook-flag { position: absolute; width: 470px; }
+    #hook-flag-my { left: -50px; top: -10px; }
+    #hook-flag-ph { right: -70px; top: 20px; }
+    #hook-title { position: absolute; left: 0; top: 300px; width: 1080px; text-align: center; }
+    #hook-title span { font-family: "PS Playfair", serif; font-weight: 900; font-style: italic; font-size: 148px; line-height: 1.1;
+      background: linear-gradient(180deg, #fff3c4 0%, #f2c14e 45%, #b8862b 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 6px 0 rgba(60, 30, 0, 0.55)) drop-shadow(0 14px 30px rgba(0, 0, 0, 0.6)); padding: 0 30px; }
+    #hook-sub { position: absolute; left: 0; top: 1035px; width: 1080px; text-align: center; }
+    #hook-sub span { display: inline-block; font-family: "PS Montserrat", sans-serif; font-weight: 900; font-size: 96px; letter-spacing: 2px; color: #fff;
+      -webkit-text-stroke: 3px #0b1e4a; paint-order: stroke fill; text-shadow: 0 8px 0 #0b1e4a, 0 16px 34px rgba(0, 0, 0, 0.55); }
+    #hook-rule { position: absolute; left: 290px; top: 1150px; width: 500px; height: 8px; background: linear-gradient(90deg, #b8862b, #fff3c4, #b8862b); border-radius: 4px; }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hook-scrim" class="clip" data-start="0" data-duration="1.9" data-track-index="0" data-layout-ignore></div>
+    <img id="hook-flag-my" class="clip hook-flag" src="assets/img/flag-my.png" data-start="0" data-duration="1.9" data-track-index="1" data-layout-allow-overflow />
+    <img id="hook-flag-ph" class="clip hook-flag" src="assets/img/flag-ph.png" data-start="0" data-duration="1.9" data-track-index="1" data-layout-allow-overflow />
+    <div id="hook-title" class="clip" data-start="0" data-duration="1.9" data-track-index="2" data-layout-allow-overlap><span id="hook-title-t">MABUHAY,</span></div>
+    <div id="hook-sub" class="clip" data-start="0.9" data-duration="1.0" data-track-index="3"><span id="hook-sub-t">PHILIPPINES!</span></div>
+    <div id="hook-rule" class="clip" data-start="0.9" data-duration="1.0" data-track-index="3" data-layout-ignore></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // flags already half in on frame 0 (thumbnail), settle fast
+    tl.fromTo("#hook-flag-my", { x: -300, rotation: -8 }, { x: 0, rotation: -3, duration: 0.55, ease: "expo.out" }, 0);
+    tl.fromTo("#hook-flag-ph", { x: 300, rotation: 8 }, { x: 0, rotation: 3, duration: 0.55, ease: "expo.out" }, 0);
+    // MABUHAY slam on the bass hit
+    tl.fromTo("#hook-title-t", { scale: 1.35, filter: "blur(3px)" }, { scale: 1, filter: "blur(0px)", duration: 0.22, ease: "expo.out" }, 0);
+    // PHILIPPINES! whips in on the word (0.94)
+    tl.fromTo("#hook-sub-t", { x: 320, opacity: 0, filter: "blur(14px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.92);
+    tl.fromTo("#hook-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power4.out" }, 1.0);
+    // clean exit before the name plate
+    tl.to(["#hook-flag-my", "#hook-flag-ph"], { y: -520, duration: 0.2, ease: "power3.in" }, 1.68);
+    tl.to(["#hook-title-t", "#hook-sub-t"], { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, 1.7);
+    tl.to("#hook-rule", { scaleX: 0, duration: 0.16, ease: "power2.in" }, 1.7);
+    tl.to("#hook-scrim", { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.68);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>
